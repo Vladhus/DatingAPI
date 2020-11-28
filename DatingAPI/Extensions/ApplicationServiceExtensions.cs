@@ -1,4 +1,6 @@
-﻿using DatingAPI.Data;
+﻿using AutoMapper;
+using DatingAPI.Data;
+using DatingAPI.Helpers;
 using DatingAPI.Interfaces;
 using DatingAPI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +18,8 @@ namespace DatingAPI.Extensions
        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddScoped<ITokenService, TokenService>();
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
 
