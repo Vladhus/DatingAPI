@@ -18,9 +18,10 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember();
+
     this.galleryOptions = [
       {
-        width: '500 px',
+        width: '500px',
         height: '500px',
         imagePercent: 100,
         thumbnailsColumns: 4,
@@ -32,7 +33,7 @@ export class MemberDetailComponent implements OnInit {
 
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
-    for(const photo of this.member.photos) {
+    for (const photo of this.member.photos) {
       imageUrls.push({
         small: photo?.url,
         medium: photo?.url,
