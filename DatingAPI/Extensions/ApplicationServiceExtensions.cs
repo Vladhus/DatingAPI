@@ -17,7 +17,9 @@ namespace DatingAPI.Extensions
     {
        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration Configuration)
         {
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
