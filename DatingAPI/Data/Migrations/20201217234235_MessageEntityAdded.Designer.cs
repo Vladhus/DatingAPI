@@ -4,14 +4,16 @@ using DatingAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingAPI.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201217234235_MessageEntityAdded")]
+    partial class MessageEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +94,7 @@ namespace DatingAPI.Data.Migrations
                     b.Property<int>("RecipientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RecipientUsername")
+                    b.Property<string>("RecipientUserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SenderDeleted")
@@ -101,7 +103,7 @@ namespace DatingAPI.Data.Migrations
                     b.Property<int>("SenderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SenderUsername")
+                    b.Property<string>("SenderUserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
