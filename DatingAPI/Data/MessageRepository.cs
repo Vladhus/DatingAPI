@@ -22,6 +22,7 @@ namespace DatingAPI.Data
             this.context = context;
             this.mapper = mapper;
         }
+
         public void AddMessage(Message message)
         {
             context.Messages.Add(message);
@@ -61,6 +62,8 @@ namespace DatingAPI.Data
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        
+
         public async Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUsername, string recipientUsername)
         {
             var messages = await context.Messages
@@ -81,7 +84,7 @@ namespace DatingAPI.Data
             {
                 foreach (var msg in unreadMessages)
                 {
-                    msg.DateRead = DateTime.Now;
+                    msg.DateRead = DateTime.UtcNow;
                 }
 
                 await context.SaveChangesAsync();
@@ -90,9 +93,34 @@ namespace DatingAPI.Data
             return mapper.Map<IEnumerable<MessageDTO>>(messages); 
         }
 
+        public void RemoveConnection(Connection connection)
+        {
+            context.Connections.Remove(connection);
+        }
+
+        public async Task<Connection> GetConnection(string connectionId)
+        {
+            return await context.Connections.FindAsync(connectionId);
+        }
+
+        public void AddGroup(Group group)
+        {
+            context.Groups.Add(group);
+        }
+
+        public async Task<Group> GetMessageGroup(string groupName)
+        {
+            return await context.Groups.Include(x => x.Connections).FirstOrDefaultAsync(x => x.Name == groupName); 
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Group> GetGroupForConnection(string connectionId)
+        {
+            return await context.Groups.Include(c => c.Connections).Where(c => c.Connections.Any(x => x.ConnectionId == connectionId)).FirstOrDefaultAsync();
         }
     }
 }
