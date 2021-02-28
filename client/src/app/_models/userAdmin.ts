@@ -1,5 +1,5 @@
-export interface User {
-  username: string;
+export interface UserAdmin {
+  userName: string;
   token: string;
   photoUrl: string;
   knownAs: string;

@@ -22,6 +22,5 @@ namespace DatingAPI.Interfaces
         Task<Message> GetMessage(int id);
         Task<PagedList<MessageDTO>> GetMesaagesForUser(MessageParams messageParams);
         Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUsername, string recipientUsername);
-        Task<bool> SaveAllAsync();
     }
 }

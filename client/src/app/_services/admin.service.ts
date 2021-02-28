@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { UserAdmin } from '../_models/userAdmin';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getUsersWithRoles() {
-    return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/users-with-roles');
+    return this.http.get<Partial<UserAdmin[]>>(this.baseUrl + 'admin/users-with-roles');
   }
 
   updateUserRoles(userName: string, roles: string[]) {
