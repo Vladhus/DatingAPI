@@ -51,7 +51,8 @@ namespace DatingAPI.Controllers
         [HttpGet("{username}", Name ="GetUser")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
-            return await unitOfWork.UserRepository.GetMemberAsync(username);
+            var currentUserName = User.GetUserName();
+            return await unitOfWork.UserRepository.GetMemberAsync(username,isCurrentUser: currentUserName == username);
         }
 
         [HttpPut]
@@ -82,12 +83,7 @@ namespace DatingAPI.Controllers
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
-
-            if (user.Photos.Count == 0)
-            {
-                photo.IsMain = true;
-            }
-
+       
             user.Photos.Add(photo);
 
             if (await unitOfWork.Complete())
